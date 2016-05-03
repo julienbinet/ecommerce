@@ -5,6 +5,7 @@ namespace EcommerceBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use EcommerceBundle\Entity\Produits;
+use EcommerceBundle\Form\Type\TestType;
 
 /**
  * @Route("/test")
@@ -12,6 +13,21 @@ use EcommerceBundle\Entity\Produits;
 
 class TestController extends Controller {
 
+      /**
+     * @Route("/form", name="test_form")
+     */
+    public function testFormulaireAction() {
+        
+        $form = $this->createForm(TestType::class, new TestType());
+       
+        return $this->render('EcommerceBundle:Default:test.html.twig', array('form' => $form->createView()));
+        
+    }
+    
+    
+    
+    
+    
     /**
      * @Route("/ajout", name="test_ajout")
      */

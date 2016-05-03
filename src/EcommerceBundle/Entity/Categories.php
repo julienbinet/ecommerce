@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="categories")
  * @ORM\Entity(repositoryClass="EcommerceBundle\Repository\CategoriesRepository")
  */
-class Categories
-{
+class Categories {
+
     /**
      * @var int
      *
@@ -22,10 +22,12 @@ class Categories
     private $id;
 
 
-    
-    
-    
-    
+    /**
+     * @ORM\OneToOne(targetEntity="EcommerceBundle\Entity\Media", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $image;
+
     /**
      * @var string
      *
@@ -33,14 +35,12 @@ class Categories
      */
     private $nom;
 
-
     /**
      * Get id
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -51,8 +51,7 @@ class Categories
      *
      * @return Categories
      */
-    public function setNom($nom)
-    {
+    public function setNom($nom) {
         $this->nom = $nom;
 
         return $this;
@@ -63,9 +62,32 @@ class Categories
      *
      * @return string
      */
-    public function getNom()
-    {
+    public function getNom() {
         return $this->nom;
     }
-}
 
+
+    /**
+     * Set image
+     *
+     * @param \EcommerceBundle\Entity\Media $image
+     *
+     * @return Categories
+     */
+    public function setImage(\EcommerceBundle\Entity\Media $image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \EcommerceBundle\Entity\Media
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+}

@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="commandes")
  * @ORM\Entity(repositoryClass="EcommerceBundle\Repository\commandesRepository")
  */
-class commandes
-{
+class Commandes {
+
     /**
      * @var int
      *
@@ -20,6 +20,12 @@ class commandes
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="UtilisateursBundle\Entity\Utilisateurs", inversedBy="commandes")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $utilisateur;
 
     /**
      * @var bool
@@ -49,14 +55,12 @@ class commandes
      */
     private $produits;
 
-
     /**
      * Get id
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -67,8 +71,7 @@ class commandes
      *
      * @return commandes
      */
-    public function setValider($valider)
-    {
+    public function setValider($valider) {
         $this->valider = $valider;
 
         return $this;
@@ -79,8 +82,7 @@ class commandes
      *
      * @return bool
      */
-    public function getValider()
-    {
+    public function getValider() {
         return $this->valider;
     }
 
@@ -91,8 +93,7 @@ class commandes
      *
      * @return commandes
      */
-    public function setDate($date)
-    {
+    public function setDate($date) {
         $this->date = $date;
 
         return $this;
@@ -103,8 +104,7 @@ class commandes
      *
      * @return \DateTime
      */
-    public function getDate()
-    {
+    public function getDate() {
         return $this->date;
     }
 
@@ -115,8 +115,7 @@ class commandes
      *
      * @return commandes
      */
-    public function setReference($reference)
-    {
+    public function setReference($reference) {
         $this->reference = $reference;
 
         return $this;
@@ -127,8 +126,7 @@ class commandes
      *
      * @return int
      */
-    public function getReference()
-    {
+    public function getReference() {
         return $this->reference;
     }
 
@@ -139,8 +137,7 @@ class commandes
      *
      * @return commandes
      */
-    public function setProduits($produits)
-    {
+    public function setProduits($produits) {
         $this->produits = $produits;
 
         return $this;
@@ -151,9 +148,32 @@ class commandes
      *
      * @return array
      */
-    public function getProduits()
-    {
+    public function getProduits() {
         return $this->produits;
     }
-}
 
+
+    /**
+     * Set utilisateur
+     *
+     * @param \UtilisateursBundle\Entity\Utilisateurs $utilisateur
+     *
+     * @return Commandes
+     */
+    public function setUtilisateur(\UtilisateursBundle\Entity\Utilisateurs $utilisateur = null)
+    {
+        $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+
+    /**
+     * Get utilisateur
+     *
+     * @return \UtilisateursBundle\Entity\Utilisateurs
+     */
+    public function getUtilisateur()
+    {
+        return $this->utilisateur;
+    }
+}

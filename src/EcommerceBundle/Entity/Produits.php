@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="produits")
  * @ORM\Entity(repositoryClass="EcommerceBundle\Repository\ProduitsRepository")
  */
-class Produits
-{
+class Produits {
+
     /**
      * @var int
      *
@@ -20,6 +20,24 @@ class Produits
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\OneToOne(targetEntity="EcommerceBundle\Entity\Media", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $image;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="EcommerceBundle\Entity\Tva", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $tva;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="EcommerceBundle\Entity\Categories", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $categorie;
 
     /**
      * @var string
@@ -49,14 +67,12 @@ class Produits
      */
     private $disponible;
 
-
     /**
      * Get id
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -67,8 +83,7 @@ class Produits
      *
      * @return Produits
      */
-    public function setNom($nom)
-    {
+    public function setNom($nom) {
         $this->nom = $nom;
 
         return $this;
@@ -79,8 +94,7 @@ class Produits
      *
      * @return string
      */
-    public function getNom()
-    {
+    public function getNom() {
         return $this->nom;
     }
 
@@ -91,8 +105,7 @@ class Produits
      *
      * @return Produits
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
 
         return $this;
@@ -103,8 +116,7 @@ class Produits
      *
      * @return string
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -115,8 +127,7 @@ class Produits
      *
      * @return Produits
      */
-    public function setPrix($prix)
-    {
+    public function setPrix($prix) {
         $this->prix = $prix;
 
         return $this;
@@ -127,8 +138,7 @@ class Produits
      *
      * @return float
      */
-    public function getPrix()
-    {
+    public function getPrix() {
         return $this->prix;
     }
 
@@ -139,8 +149,7 @@ class Produits
      *
      * @return Produits
      */
-    public function setDisponible($disponible)
-    {
+    public function setDisponible($disponible) {
         $this->disponible = $disponible;
 
         return $this;
@@ -151,9 +160,80 @@ class Produits
      *
      * @return bool
      */
-    public function getDisponible()
-    {
+    public function getDisponible() {
         return $this->disponible;
     }
-}
 
+
+    /**
+     * Set image
+     *
+     * @param \EcommerceBundle\Entity\Media $image
+     *
+     * @return Produits
+     */
+    public function setImage(\EcommerceBundle\Entity\Media $image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \EcommerceBundle\Entity\Media
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set tva
+     *
+     * @param \EcommerceBundle\Entity\Tva $tva
+     *
+     * @return Produits
+     */
+    public function setTva(\EcommerceBundle\Entity\Tva $tva)
+    {
+        $this->tva = $tva;
+
+        return $this;
+    }
+
+    /**
+     * Get tva
+     *
+     * @return \EcommerceBundle\Entity\Tva
+     */
+    public function getTva()
+    {
+        return $this->tva;
+    }
+
+    /**
+     * Set categorie
+     *
+     * @param \EcommerceBundle\Entity\Categories $categorie
+     *
+     * @return Produits
+     */
+    public function setCategorie(\EcommerceBundle\Entity\Categories $categorie)
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * Get categorie
+     *
+     * @return \EcommerceBundle\Entity\Categories
+     */
+    public function getCategorie()
+    {
+        return $this->categorie;
+    }
+}

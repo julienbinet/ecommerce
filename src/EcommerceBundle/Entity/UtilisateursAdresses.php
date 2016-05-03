@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="utilisateurs_adresses")
  * @ORM\Entity(repositoryClass="EcommerceBundle\Repository\UtilisateursAdressesRepository")
  */
-class UtilisateursAdresses
-{
+class UtilisateursAdresses {
+
     /**
      * @var int
      *
@@ -20,6 +20,12 @@ class UtilisateursAdresses
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="EcommerceBundle\Entity\Utilisateurs", inversedBy="adresses")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $utilisateur;
 
     /**
      * @var string
@@ -77,14 +83,12 @@ class UtilisateursAdresses
      */
     private $complement;
 
-
     /**
      * Get id
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -95,8 +99,7 @@ class UtilisateursAdresses
      *
      * @return UtilisateursAdresses
      */
-    public function setNom($nom)
-    {
+    public function setNom($nom) {
         $this->nom = $nom;
 
         return $this;
@@ -107,8 +110,7 @@ class UtilisateursAdresses
      *
      * @return string
      */
-    public function getNom()
-    {
+    public function getNom() {
         return $this->nom;
     }
 
@@ -119,8 +121,7 @@ class UtilisateursAdresses
      *
      * @return UtilisateursAdresses
      */
-    public function setPrenom($prenom)
-    {
+    public function setPrenom($prenom) {
         $this->prenom = $prenom;
 
         return $this;
@@ -131,8 +132,7 @@ class UtilisateursAdresses
      *
      * @return string
      */
-    public function getPrenom()
-    {
+    public function getPrenom() {
         return $this->prenom;
     }
 
@@ -143,8 +143,7 @@ class UtilisateursAdresses
      *
      * @return UtilisateursAdresses
      */
-    public function setTelephone($telephone)
-    {
+    public function setTelephone($telephone) {
         $this->telephone = $telephone;
 
         return $this;
@@ -155,8 +154,7 @@ class UtilisateursAdresses
      *
      * @return string
      */
-    public function getTelephone()
-    {
+    public function getTelephone() {
         return $this->telephone;
     }
 
@@ -167,8 +165,7 @@ class UtilisateursAdresses
      *
      * @return UtilisateursAdresses
      */
-    public function setAdresse($adresse)
-    {
+    public function setAdresse($adresse) {
         $this->adresse = $adresse;
 
         return $this;
@@ -179,8 +176,7 @@ class UtilisateursAdresses
      *
      * @return string
      */
-    public function getAdresse()
-    {
+    public function getAdresse() {
         return $this->adresse;
     }
 
@@ -191,8 +187,7 @@ class UtilisateursAdresses
      *
      * @return UtilisateursAdresses
      */
-    public function setCp($cp)
-    {
+    public function setCp($cp) {
         $this->cp = $cp;
 
         return $this;
@@ -203,8 +198,7 @@ class UtilisateursAdresses
      *
      * @return string
      */
-    public function getCp()
-    {
+    public function getCp() {
         return $this->cp;
     }
 
@@ -215,8 +209,7 @@ class UtilisateursAdresses
      *
      * @return UtilisateursAdresses
      */
-    public function setPays($pays)
-    {
+    public function setPays($pays) {
         $this->pays = $pays;
 
         return $this;
@@ -227,8 +220,7 @@ class UtilisateursAdresses
      *
      * @return string
      */
-    public function getPays()
-    {
+    public function getPays() {
         return $this->pays;
     }
 
@@ -239,8 +231,7 @@ class UtilisateursAdresses
      *
      * @return UtilisateursAdresses
      */
-    public function setVille($ville)
-    {
+    public function setVille($ville) {
         $this->ville = $ville;
 
         return $this;
@@ -251,8 +242,7 @@ class UtilisateursAdresses
      *
      * @return string
      */
-    public function getVille()
-    {
+    public function getVille() {
         return $this->ville;
     }
 
@@ -263,8 +253,7 @@ class UtilisateursAdresses
      *
      * @return UtilisateursAdresses
      */
-    public function setComplement($complement)
-    {
+    public function setComplement($complement) {
         $this->complement = $complement;
 
         return $this;
@@ -275,9 +264,32 @@ class UtilisateursAdresses
      *
      * @return string
      */
-    public function getComplement()
-    {
+    public function getComplement() {
         return $this->complement;
     }
-}
 
+
+    /**
+     * Set utilisateur
+     *
+     * @param \EcommerceBundle\Entity\Utilisateurs $utilisateur
+     *
+     * @return UtilisateursAdresses
+     */
+    public function setUtilisateur(\EcommerceBundle\Entity\Utilisateurs $utilisateur = null)
+    {
+        $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+
+    /**
+     * Get utilisateur
+     *
+     * @return \EcommerceBundle\Entity\Utilisateurs
+     */
+    public function getUtilisateur()
+    {
+        return $this->utilisateur;
+    }
+}

@@ -22,7 +22,7 @@ class UtilisateursAdresses {
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="EcommerceBundle\Entity\Utilisateurs", inversedBy="adresses")
+     * @ORM\ManyToOne(targetEntity="UtilisateursBundle\Entity\Utilisateurs", inversedBy="adresses")
      * @ORM\JoinColumn(nullable=true)
      */
     private $utilisateur;
@@ -272,11 +272,11 @@ class UtilisateursAdresses {
     /**
      * Set utilisateur
      *
-     * @param \EcommerceBundle\Entity\Utilisateurs $utilisateur
+     * @param \UtilisateursBundle\Entity\Utilisateurs $utilisateur
      *
      * @return UtilisateursAdresses
      */
-    public function setUtilisateur(\EcommerceBundle\Entity\Utilisateurs $utilisateur = null)
+    public function setUtilisateur(\UtilisateursBundle\Entity\Utilisateurs $utilisateur = null)
     {
         $this->utilisateur = $utilisateur;
 
@@ -286,7 +286,7 @@ class UtilisateursAdresses {
     /**
      * Get utilisateur
      *
-     * @return \EcommerceBundle\Entity\Utilisateurs
+     * @return \UtilisateursBundle\Entity\Utilisateurs
      */
     public function getUtilisateur()
     {

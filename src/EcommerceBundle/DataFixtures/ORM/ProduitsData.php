@@ -17,7 +17,7 @@ class ProduitsData extends AbstractFixture implements OrderedFixtureInterface {
         $produit1->setImage($this->getReference('media3'));
         $produit1->setNom('Poivron rouge');
         $produit1->setPrix('1.99');
-        $produit1->setTva($this->getReference('tva2'));
+        $produit1->setTva($this->getReference('tva1'));
         $manager->persist($produit1);
 
         $produit2 = new Produits();

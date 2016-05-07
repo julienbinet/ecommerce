@@ -12,22 +12,42 @@ class ProduitsController extends Controller {
     /**
      * @Route("/", name="produit")
      */
-    public function produitsAction() {
+    public function produitsAction(Request $request) {
+
+        $session = $request->getSession();
+
         $em = $this->getDoctrine()->getManager();
         $produits = $em->getRepository('EcommerceBundle:Produits')->findBy(array("disponible" => 1));
 
-        return $this->render('EcommerceBundle:Default:produits/layout/produits.html.twig', array('produits' => $produits));
+        if ($session->has(('panier')))
+            $panier = $session->get('panier');
+        else
+            $panier = false;
+
+        return $this->render('EcommerceBundle:Default:produits/layout/produits.html.twig', array('produits' => $produits,
+                    'panier' => $panier));
     }
 
     /**
      * @Route("/produit/{id}", name="presentation")
      */
-    public function presentationAction($id) {
+    public function presentationAction($id, Request $request) {
+
+        $session = $request->getSession();
+
         $em = $this->getDoctrine()->getManager();
         $produit = $em->getRepository('EcommerceBundle:Produits')->find($id);
 
-        if(!$produit) throw  $this->createNotFoundException("Le produit n'existe pas");
-        return $this->render('EcommerceBundle:Default:produits/layout/presentation.html.twig', array('produit' => $produit));
+        if (!$produit)
+            throw $this->createNotFoundException("Le produit n'existe pas");
+
+        if ($session->has(('panier')))
+            $panier = $session->get('panier');
+        else
+            $panier = false;
+
+        return $this->render('EcommerceBundle:Default:produits/layout/presentation.html.twig', array('produit' => $produit,
+                    'panier' => $panier));
     }
 
     /**
@@ -39,8 +59,9 @@ class ProduitsController extends Controller {
         $produits = $em->getRepository('EcommerceBundle:Produits')->byCategorie($id);
 
         $categorie = $em->getRepository('EcommerceBundle:Categories')->find($id);
-        if(!$categorie) throw  $this->createNotFoundException("La catégorie n'existe pas");
-        
+        if (!$categorie)
+            throw $this->createNotFoundException("La catégorie n'existe pas");
+
         return $this->render('EcommerceBundle:Default:produits/layout/produits.html.twig', array('produits' => $produits));
     }
 
@@ -63,11 +84,11 @@ class ProduitsController extends Controller {
 
             $form->handleRequest($request);
             $chaine = $form['recherche']->getData();
-            
+
             $em = $this->getDoctrine()->getManager();
             $produit = $em->getRepository('EcommerceBundle:Produits')->recherche($chaine);
-        }else{
-            throw  $this->createNotFoundException("La page n'existe pas");
+        } else {
+            throw $this->createNotFoundException("La page n'existe pas");
         }
 
 

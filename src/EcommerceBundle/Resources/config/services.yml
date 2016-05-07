@@ -6,3 +6,13 @@ services:
         class: EcommerceBundle\Twig\Extension\TvaExtension
         tags:
             - {name: twig.extension}
+    montantTva: 
+        class: EcommerceBundle\Twig\Extension\MontantTvaExtension
+        tags:
+            - {name: twig.extension}
+            
+#    redirectionListener:
+#        class: EcommerceBundle\Listener\RedirectionListener
+#        arguments: [@service_container, @session]
+#        tags:
+#            - {name: kernet.event_listener, event: kernel.request, method: onKernelRequest}

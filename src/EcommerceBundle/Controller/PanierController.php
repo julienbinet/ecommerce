@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use EcommerceBundle\Form\UtilisateursAdressesType;
+use EcommerceBundle\Entity\UtilisateursAdresses;
 
 class PanierController extends Controller {
 
@@ -73,7 +75,7 @@ class PanierController extends Controller {
     public function panierAction(Request $request) {
 
         $session = $request->getSession();
-        
+
 //        $session->remove('panier');
 //        die();
 
@@ -91,8 +93,44 @@ class PanierController extends Controller {
     /**
      * @Route("/livraison" , name="livraison")
      */
-    public function livraisonAction() {
-        return $this->render('EcommerceBundle:Default:panier/layout/livraison.html.twig');
+    public function livraisonAction(Request $request) {
+
+        $utilisateur = $this->container->get('security.token_storage')->getToken()->getUser();
+        $entity = new UtilisateursAdresses();
+        $form = $this->createForm(UtilisateursAdressesType::class, $entity);
+
+        if ($request->getMethod() == "POST") {
+
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $entity->setUtilisateur($utilisateur);
+                $em->persist($entity);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('livraison'));
+            }
+        }
+
+        return $this->render('EcommerceBundle:Default:panier/layout/livraison.html.twig', array('utilisateur' => $utilisateur,
+                    'form' => $form->createView()));
+    }
+
+    /**
+     * @Route("/livraison/adresse/suppresion/{id}" , name="livraisonAdresseSuppression")
+     */
+    public function adresseSuppressionAction($id) {
+
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('EcommerceBundle:UtilisateursAdresses')->find($id);
+
+        if ($this->container->get('security.token_storage')->getToken()->getUser() != $entity->getUtilisateur() || !$entity)
+            return $this->redirect($this->generateUrl('livraison'));
+
+        $em->remove($entity);
+        $em->flush();
+        return $this->redirect($this->generateUrl('livraison'));
     }
 
     /**

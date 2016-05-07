@@ -4,35 +4,33 @@ namespace EcommerceBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use EcommerceBundle\Form\Type\RechercheType;
 use Symfony\Component\HttpFoundation\Request;
+use EcommerceBundle\Form\Type\RechercheType;
+use EcommerceBundle\Entity\Categories;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class ProduitsController extends Controller {
 
-    /**
-     * @Route("/categorie/{id}", name="categorie_produits")
-     */
-    public function categorieAction($id) {
-
-        $em = $this->getDoctrine()->getManager();
-        $produits = $em->getRepository('EcommerceBundle:Produits')->byCategorie($id);
-
-        $categorie = $em->getRepository('EcommerceBundle:Categories')->find($id);
-        if (!$categorie)
-            throw $this->createNotFoundException("La catégorie n'existe pas");
-
-        return $this->render('EcommerceBundle:Default:produits/layout/produits.html.twig', array('produits' => $produits));
-    }
-
+    
     /**
      * @Route("/", name="produit")
+     * 
+     * @Route("/categorie/{id}", name="categorie_produits")
+     * @ParamConverter("Categories", class="EcommerceBundle\Entity\Categories", isOptional="true")
+     * 
      */
-    public function produitsAction(Request $request) {
+    public function produitsAction(Request $request, Categories $idCategorie = null) {
 
         $session = $request->getSession();
 
         $em = $this->getDoctrine()->getManager();
-        $produits = $em->getRepository('EcommerceBundle:Produits')->findBy(array("disponible" => 1));
+
+        if ($idCategorie != null)
+            $produits = $em->getRepository('EcommerceBundle:Produits')->byCategorie($idCategorie);
+        else
+            $produits = $em->getRepository('EcommerceBundle:Produits')->findBy(array("disponible" => 1));
+
+
 
         if ($session->has(('panier')))
             $panier = $session->get('panier');

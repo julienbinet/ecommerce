@@ -10,6 +10,21 @@ use Symfony\Component\HttpFoundation\Request;
 class ProduitsController extends Controller {
 
     /**
+     * @Route("/categorie/{id}", name="categorie_produits")
+     */
+    public function categorieAction($id) {
+
+        $em = $this->getDoctrine()->getManager();
+        $produits = $em->getRepository('EcommerceBundle:Produits')->byCategorie($id);
+
+        $categorie = $em->getRepository('EcommerceBundle:Categories')->find($id);
+        if (!$categorie)
+            throw $this->createNotFoundException("La catégorie n'existe pas");
+
+        return $this->render('EcommerceBundle:Default:produits/layout/produits.html.twig', array('produits' => $produits));
+    }
+
+    /**
      * @Route("/", name="produit")
      */
     public function produitsAction(Request $request) {
@@ -48,21 +63,6 @@ class ProduitsController extends Controller {
 
         return $this->render('EcommerceBundle:Default:produits/layout/presentation.html.twig', array('produit' => $produit,
                     'panier' => $panier));
-    }
-
-    /**
-     * @Route("/categorie/{id}", name="categorie_produits")
-     */
-    public function categorieAction($id) {
-
-        $em = $this->getDoctrine()->getManager();
-        $produits = $em->getRepository('EcommerceBundle:Produits')->byCategorie($id);
-
-        $categorie = $em->getRepository('EcommerceBundle:Categories')->find($id);
-        if (!$categorie)
-            throw $this->createNotFoundException("La catégorie n'existe pas");
-
-        return $this->render('EcommerceBundle:Default:produits/layout/produits.html.twig', array('produits' => $produits));
     }
 
     public function rechercheAction() {

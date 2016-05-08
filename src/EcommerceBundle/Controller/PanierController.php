@@ -133,11 +133,48 @@ class PanierController extends Controller {
         return $this->redirect($this->generateUrl('livraison'));
     }
 
+    public function setLivraisonOnSession(Request $request) {
+        $session = $request->getSession();
+
+        if ($session->has('adresse'))
+            $session->set('adresse', array());
+        $adresse = $session->get('adresse');
+
+        if ($request->request->get('livraison') != null && $request->request->get('facturation') != null) {
+            $adresse['livraison'] = $request->request->get('livraison');
+            $adresse['facturation'] = $request->request->get('facturation');
+        } else {
+            return $this->redirect($this->generateUrl('validation'));
+        }
+
+        $session->set('adresse', $adresse);
+        return $this->redirect($this->generateUrl('validation'));
+    }
+
     /**
      * @Route("/validation" , name="validation")
      */
-    public function validationAction() {
-        return $this->render('EcommerceBundle:Default:panier/layout/validation.html.twig');
+    public function validationAction(Request $request) {
+
+        if ($request->getMethod() == "POST")
+            $this->setLivraisonOnSession($request);
+
+        $em = $this->getDoctrine()->getManager();
+        $session = $request->getSession();
+        $adresse = $session->get('adresse');
+        $panier = $session->get('panier');
+
+        $produits = $em->getRepository('EcommerceBundle:Produits')->findArray(array_keys($panier));
+        $livraison = $em->getRepository('EcommerceBundle:UtilisateursAdresses')->find($adresse['livraison']);
+        $facturation = $em->getRepository('EcommerceBundle:UtilisateursAdresses')->find($adresse['facturation']);
+
+        return $this->render('EcommerceBundle:Default:panier/layout/validation.html.twig', array(
+                    "produits" => $produits,
+                    "livraison" => $livraison,
+                    "facturation" => $facturation,
+                    "panier" => $panier,
+                        )
+        );
     }
 
 }

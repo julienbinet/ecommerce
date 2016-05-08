@@ -6,12 +6,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use EcommerceBundle\Entity\Commandes;
 
 class CommandesController extends Controller {
 
-    public function facture() {
+    public function facture(Request $request) {
 
+              
+      
+        
         $em = $this->getDoctrine()->getManager();
         $generator = random_bytes(20);
         $session = $request->getSession();
@@ -62,30 +66,32 @@ class CommandesController extends Controller {
         $commande['prixHT'] = round($totalHT, 2);
         $commande['prixTTC'] = round($totalTTC, 2);
         $commande['token'] = bin2hex($generator);
+
         
         return $commande;
     }
 
 
     
-    public function prepareCommandeAction() {
+    public function prepareCommandeAction(Request $request) {
 
         $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
 
-        if ($session->has('commande'))
+        if (!$session->has('commande'))
             $commande = new Commandes();
         else
             $commande = $em->getRepository('EcommerceBundle:Commandes')->find($session->get('commande'));
-
+        
         $commande->setDate(new \DateTime());
         $commande->setUtilisateur($this->container->get('security.token_storage')->getToken()->getUser());
         $commande->setValider(0);
         $commande->setReference(0);
-        $commande->setCommande($this->facture());
+        
+        $commande->setCommande($this->facture($request));
 
-        if ($session->has('commande')) {
-            $em->persist();
+        if (!$session->has('commande')) {
+            $em->persist($commande);
             $session->set('commande', $commande);
         }
 
@@ -93,5 +99,37 @@ class CommandesController extends Controller {
 
         return new Response($commande->getId());
     }
+    
+    
+    /* cette méthode remplace l'api de la banque */
+    
+        /**
+     * @Route("/api/banque/{id}" , name="validation_commande")
+     */
+    public function validationCommandeAction($id, Request $request) {
+        
+        $em = $this->getDoctrine()->getManager();
+        $commande = $em->getRepository('EcommerceBundle:Commandes')->find($id);
+        
+        if (!$commande || $commande->getValider() ==1 ){
+            throw $this->createNotFoundException("La commande n'existe pas.");
+        }
+        
+        $commande->setValider(1);
+        $commande->setReference(3); // service
+        
+        $em->flush();
+        
+        $session = $request->getSession();
+        $session->remove('adresse');
+        $session->remove('panier');
+        $session->remove('commande');
+        
+        $session->getFlashBag()->add('success', 'Votre commande a été validé avec succès');
+        
+        return $this->redirect($this->generateUrl('produit'));
+        
+    }
+
 
 }

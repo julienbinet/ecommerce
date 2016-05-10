@@ -1,0 +1,19 @@
+{% extends '::layout/baseAdmin.html.twig' %}
+
+{% block body %}
+    <h2>Pages creation</h2>
+
+    <div class="span8">
+        
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input class="btn btn-primary" type="submit" value="Créer" />
+    {{ form_end(form) }}
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('admin_pages_index') }}">Retour à la liste</a>
+        </li>
+    </ul>
+    </div>
+{% endblock %}

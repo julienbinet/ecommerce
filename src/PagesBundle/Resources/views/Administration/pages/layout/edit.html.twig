@@ -1,0 +1,22 @@
+{% extends '::layout/baseAdmin.html.twig' %}
+
+{% block body %}
+    <h2>Pages edit</h2>
+    <div class="span8">
+        {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <input type="submit" class="btn btn-primary" value="Valider les modifications" />
+        {{ form_end(edit_form) }}
+
+        <ul>
+            <li>
+                <a href="{{ path('admin_pages_index') }}">Retour à la liste</a>
+            </li>
+            <li>
+                {{ form_start(delete_form) }}
+                <input type="submit" class="btn btn-danger" value="Supprimer">
+                {{ form_end(delete_form) }}
+            </li>
+        </ul>
+    </div>
+{% endblock %}

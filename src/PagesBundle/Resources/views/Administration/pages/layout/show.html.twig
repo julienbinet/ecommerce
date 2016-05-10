@@ -1,0 +1,36 @@
+{% extends '::layout/baseAdmin.html.twig' %}
+
+{% block body %}
+    <h1>Pages</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ page.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ page.titre }}</td>
+            </tr>
+            <tr>
+                <th>Contenu</th>
+                <td>{{ page.contenu }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_pages_index') }}">Retour à la liste</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_pages_edit', { 'id': page.id }) }}" class="btn btn-primary">Editer</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" class="btn btn-danger" value="Supprimer">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

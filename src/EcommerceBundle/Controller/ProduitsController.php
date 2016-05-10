@@ -11,7 +11,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class ProduitsController extends Controller {
 
-    
     /**
      * @Route("/", name="produit")
      * 
@@ -26,16 +25,21 @@ class ProduitsController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         if ($idCategorie != null)
-            $produits = $em->getRepository('EcommerceBundle:Produits')->byCategorie($idCategorie);
+            $findProduits = $em->getRepository('EcommerceBundle:Produits')->byCategorie($idCategorie);
         else
-            $produits = $em->getRepository('EcommerceBundle:Produits')->findBy(array("disponible" => 1));
-
-
+            $findProduits = $em->getRepository('EcommerceBundle:Produits')->findBy(array("disponible" => 1));
 
         if ($session->has(('panier')))
             $panier = $session->get('panier');
         else
             $panier = false;
+
+
+        $produits = $this->get('knp_paginator')->paginate(
+                $findProduits,
+                $request->query->getInt('page', 1)/* page number */,
+                3/* limit per page */
+        );
 
         return $this->render('EcommerceBundle:Default:produits/layout/produits.html.twig', array('produits' => $produits,
                     'panier' => $panier));

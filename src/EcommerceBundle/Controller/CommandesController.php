@@ -11,10 +11,9 @@ use EcommerceBundle\Entity\Commandes;
 
 class CommandesController extends Controller {
 
+    
+    /* methode appelé dans prepareCommandeAction */
     public function facture(Request $request) {
-
-              
-      
         
         $em = $this->getDoctrine()->getManager();
         $generator = random_bytes(20);
@@ -23,7 +22,7 @@ class CommandesController extends Controller {
         $panier = $session->get('panier');
         $commande = array();
         $totalHT = 0;
-        $totalTTC = 0;
+        $totalTVA = 0;
 
         $facturation = $em->getRepository('EcommerceBundle:UtilisateursAdresses')->find($adresse['facturation']);
         $livraison = $em->getRepository('EcommerceBundle:UtilisateursAdresses')->find($adresse['livraison']);
@@ -34,13 +33,14 @@ class CommandesController extends Controller {
             $prixHT = ($produit->getPrix() * $panier[$produit->getId()]);
             $prixTTC = ($produit->getPrix() * $panier[$produit->getId()] / $produit->getTva()->getMultiplicate());
             $totalHT += $prixHT;
-            $totalTTC += $prixTTC;
 
             if (!isset($commande['tva']['%' . $produit->getTva()->getValeur()]))
                 $commande['tva']['%' . $produit->getTva()->getValeur()] = round($prixTTC - $prixHT, 2);
             else
                 $commande['tva']['%' . $produit->getTva()->getValeur()] += round($prixTTC - $prixHT, 2);
 
+            $totalTVA += round($prixTTC-$prixHT,2);
+            
             $commande['produit'][$produit->getId()] = array('reference' => $produit->getNom(),
                 'quantite' => $panier[$produit->getId()],
                 'prixHT' => round($produit->getPrix(), 2),
@@ -64,7 +64,7 @@ class CommandesController extends Controller {
             'pays' => $facturation->getPays(),
             'complement' => $facturation->getComplement());
         $commande['prixHT'] = round($totalHT, 2);
-        $commande['prixTTC'] = round($totalTTC, 2);
+        $commande['prixTTC'] = round($totalHT + $totalTVA, 2);
         $commande['token'] = bin2hex($generator);
 
         
@@ -72,7 +72,7 @@ class CommandesController extends Controller {
     }
 
 
-    
+    /* méthode forwarder depuis validation du panier dans PanierController:validationAction */
     public function prepareCommandeAction(Request $request) {
 
         $session = $request->getSession();
@@ -116,7 +116,7 @@ class CommandesController extends Controller {
         }
         
         $commande->setValider(1);
-        $commande->setReference(3); // service
+        $commande->setReference($this->container->get('setNewReference')->reference()); // service
         
         $em->flush();
         
@@ -125,9 +125,9 @@ class CommandesController extends Controller {
         $session->remove('panier');
         $session->remove('commande');
         
-        $session->getFlashBag()->add('success', 'Votre commande a été validé avec succès');
+        $session->getFlashBag()->add('success', 'Votre commande a été validée avec succès');
         
-        return $this->redirect($this->generateUrl('produit'));
+        return $this->redirect($this->generateUrl('factures'));
         
     }
 

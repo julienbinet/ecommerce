@@ -60,7 +60,7 @@
                             </tr>
 
                             {% set totalHT = totalHT + produit.prix * panier[produit.id] %}
-                            {% set totalTTC = totalTTC + produit.prix * panier[produit.id] | tva(produit.tva.multiplicate) %}
+                            {% set totalTTC = totalTTC + (produit.prix * panier[produit.id]) | tva(produit.tva.multiplicate) %}
                             {% set refTva = refTva|merge({ ('%'~ produit.tva.valeur) : refTva['%' ~ produit.tva.valeur] + (produit.prix * panier[produit.id]) |montantTva(produit.tva.multiplicate)  }) %}
 
                         {% endfor %}

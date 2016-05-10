@@ -42,8 +42,11 @@ class UtilisateursController extends Controller {
                 )
         );
 
-        $this->get('session')->getFlashBag()->add('notice', 'CV généré');
+        $this->get('session')->getFlashBag()->add('notice', 'facture générée');
 
+        
+
+        
         return new Response(
                 $this->get('knp_snappy.pdf')->getOutputFromHtml($html), 200, array(
             'Content-Type' => 'application/pdf',

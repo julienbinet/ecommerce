@@ -4,6 +4,23 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    
+    setNewReference:
+        class: EcommerceBundle\Services\GetReference
+        arguments: ["@security.context", "@doctrine.orm.entity_manager"]
+        
+    tva:
+        class: EcommerceBundle\Twig\Extension\TvaExtension
+        tags:
+            - { name: twig.extension}
+            
+    montantTva:
+        class: EcommerceBundle\Twig\Extension\MontantTvaExtension
+        tags:
+            - { name: twig.extension}
+            
+    redirectionListener:
+        class: EcommerceBundle\Listener\Redirection
+        arguments: ["@service_container", "@session"]
+        tags:
+            - {name: kernel.event_listener, event: kernel.request, method: onKernelRequest}

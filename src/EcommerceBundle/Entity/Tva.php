@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="tva")
  * @ORM\Entity(repositoryClass="EcommerceBundle\Repository\TvaRepository")
  */
-class Tva
-{
+class Tva {
+
     /**
      * @var int
      *
@@ -42,14 +42,12 @@ class Tva
      */
     private $valeur;
 
-
     /**
      * Get id
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -60,8 +58,7 @@ class Tva
      *
      * @return Tva
      */
-    public function setMultiplicate($multiplicate)
-    {
+    public function setMultiplicate($multiplicate) {
         $this->multiplicate = $multiplicate;
 
         return $this;
@@ -72,8 +69,7 @@ class Tva
      *
      * @return float
      */
-    public function getMultiplicate()
-    {
+    public function getMultiplicate() {
         return $this->multiplicate;
     }
 
@@ -84,8 +80,7 @@ class Tva
      *
      * @return Tva
      */
-    public function setNom($nom)
-    {
+    public function setNom($nom) {
         $this->nom = $nom;
 
         return $this;
@@ -96,8 +91,7 @@ class Tva
      *
      * @return string
      */
-    public function getNom()
-    {
+    public function getNom() {
         return $this->nom;
     }
 
@@ -108,8 +102,7 @@ class Tva
      *
      * @return Tva
      */
-    public function setValeur($valeur)
-    {
+    public function setValeur($valeur) {
         $this->valeur = $valeur;
 
         return $this;
@@ -120,8 +113,12 @@ class Tva
      *
      * @return float
      */
-    public function getValeur()
-    {
+    public function getValeur() {
         return $this->valeur;
     }
+
+    public function __toString() {
+        return $this->getNom();
+    }
+
 }

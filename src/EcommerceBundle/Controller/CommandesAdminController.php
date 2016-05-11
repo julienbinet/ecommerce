@@ -4,6 +4,7 @@ namespace EcommerceBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Response;
 use EcommerceBundle\Entity\Commandes;
 use EcommerceBundle\Entity\Produits;
 use EcommerceBundle\Entity\UtilisateursAdresses;
@@ -40,7 +41,12 @@ class CommandesAdminController extends Controller {
 
 
         /* Appel au service de generation de facture en pdf */
-        return $this->container->get('setNewFacture')->facture($facture);
+        return new Response(
+                $this->container->get('setNewFacture')->facture($facture), 200, array(
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="facture.pdf"'
+                )
+        );
         
     }
 

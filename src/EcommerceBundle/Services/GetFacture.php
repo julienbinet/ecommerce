@@ -14,21 +14,18 @@ class GetFacture {
         $this->templating = $templating;
     }
 
-    public function facture($facture) {
+    public function facture($facture, $path = null) {
 
         $html = $this->templating->render('UtilisateursBundle:Default:layout/facturePDF.html.twig', array(
             'facture' => $facture
                 )
         );
 
-//        var_dump($this->container->get('knp_snappy.pdf')->getOutputFromHtml($html));
-//        die('o');
-        return new Response(
-                $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html), 200, array(
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="facture.pdf"'
-                )
-        );
+        if ($path === null) {
+            return $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html);
+        } else {
+            return $this->container->get('knp_snappy.pdf')->generateFromHtml($html, $path);
+        }
     }
 
 }

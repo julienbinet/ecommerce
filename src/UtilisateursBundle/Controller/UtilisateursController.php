@@ -41,7 +41,12 @@ class UtilisateursController extends Controller {
 //       return $this->render('UtilisateursBundle:Default:layout/facturePDF.html.twig', array('facture' => $facture));
 
         /* Appel au service de generation de facture en pdf */
-        return $this->container->get('setNewFacture')->facture($facture);
+        return new Response(
+                $this->container->get('setNewFacture')->facture($facture), 200, array(
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="facture.pdf"'
+                )
+        );
         
     }
 

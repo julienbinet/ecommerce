@@ -5,6 +5,7 @@ namespace UtilisateursBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class UtilisateursController extends Controller {
 
@@ -47,6 +48,23 @@ class UtilisateursController extends Controller {
             'Content-Disposition' => 'attachment; filename="facture.pdf"'
                 )
         );
+    }
+
+    /**
+     * @Route("/villes/{cp}", name="villes")
+     */
+    public function villesAction($cp) {
+        $em = $this->getDoctrine()->getManager();
+        $ville = $em->getRepository('EcommerceBundle:Villes')->findOneBy(array('villeCodePostal' => $cp));
+
+        if ($ville) {
+            $villeNom = $ville->getVilleNom();
+        } else {
+            $villeNom = null;
+        }
+        
+        $response = new JsonResponse();
+        return $response->setData(array('ville' => $villeNom));
         
     }
 

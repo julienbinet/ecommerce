@@ -5,6 +5,10 @@ parameters:
 
 services:
     
+    setNewFacture:
+        class: EcommerceBundle\Services\GetFacture
+        arguments: ["@service_container", '@templating']
+    
     setNewReference:
         class: EcommerceBundle\Services\GetReference
         arguments: ["@security.context", "@doctrine.orm.entity_manager"]

@@ -76,9 +76,6 @@ class PanierController extends Controller {
 
         $session = $request->getSession();
 
-//        $session->remove('panier');
-//        die();
-
         if (!$session->has(('panier')))
             $session->set('panier', array());
 
@@ -160,33 +157,15 @@ class PanierController extends Controller {
             $this->setLivraisonOnSession($request);
 
         $em = $this->getDoctrine()->getManager();
-        
+
+        /* On fait appelle à la méthode contenu dans CommandesController preparecommande() */
         $prepareCommande = $this->forward('EcommerceBundle:Commandes:prepareCommande');
         $commande = $em->getRepository('EcommerceBundle:Commandes')->find($prepareCommande->getContent());
-   
-        /*
-        $session = $request->getSession();
-        $adresse = $session->get('adresse');
-        $panier = $session->get('panier');
-
-        $produits = $em->getRepository('EcommerceBundle:Produits')->findArray(array_keys($panier));
-        $livraison = $em->getRepository('EcommerceBundle:UtilisateursAdresses')->find($adresse['livraison']);
-        $facturation = $em->getRepository('EcommerceBundle:UtilisateursAdresses')->find($adresse['facturation']);
-
 
         return $this->render('EcommerceBundle:Default:panier/layout/validation.html.twig', array(
-                    "produits" => $produits,
-                    "livraison" => $livraison,
-                    "facturation" => $facturation,
-                    "panier" => $panier,
-                        )
-        );
-        */
-                return $this->render('EcommerceBundle:Default:panier/layout/validation.html.twig', array(
                     "commande" => $commande,
                         )
         );
-        
     }
 
 }

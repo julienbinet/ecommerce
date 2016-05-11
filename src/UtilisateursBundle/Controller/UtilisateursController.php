@@ -32,31 +32,16 @@ class UtilisateursController extends Controller {
                 )
         );
 
+        if (!$facture) {
 
+            $this->get('session')->getFlashBag()->add('error', 'Une erreur est survenue');
+            return $this->redirect($this->generateUrl('factures'));
+        }
 
 //       return $this->render('UtilisateursBundle:Default:layout/facturePDF.html.twig', array('facture' => $facture));
 
-
-        $html = $this->renderView('UtilisateursBundle:Default:layout/facturePDF.html.twig', array(
-            'facture' => $facture
-                )
-        );
-
-        $this->get('session')->getFlashBag()->add('notice', 'facture générée');
-
-        
-
-        
-        return new Response(
-                $this->get('knp_snappy.pdf')->getOutputFromHtml($html), 200, array(
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="facture.pdf"'
-                )
-        );
-        
-        
-        
-        
+        /* Appel au service de generation de facture en pdf */
+        return $this->container->get('setNewFacture')->facture($facture);
         
     }
 

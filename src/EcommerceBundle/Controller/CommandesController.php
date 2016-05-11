@@ -88,6 +88,7 @@ class CommandesController extends Controller {
         $commande->setValider(0);
         $commande->setReference(0);
         
+        
         $commande->setCommande($this->facture($request));
 
         if (!$session->has('commande')) {

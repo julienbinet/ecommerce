@@ -23,5 +23,26 @@ class CommandesAdminController extends Controller {
                         )
         );
     }
+    
+    
+    /**
+     * @Route("/admin/facture/{id}", name="voir_facture")
+     */
+    public function voirFactureAction($id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $facture = $em->getRepository('EcommerceBundle:Commandes')->find($id);
+
+        if (!$facture) {
+            $this->get('session')->getFlashBag()->add('error', 'Une erreur est survenue');
+            return $this->redirect($this->generateUrl('admin_commandes_index'));
+        }
+
+
+        /* Appel au service de generation de facture en pdf */
+        return $this->container->get('setNewFacture')->facture($facture);
+        
+    }
+
 
 }

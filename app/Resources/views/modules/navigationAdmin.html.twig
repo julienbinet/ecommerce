@@ -1,33 +1,30 @@
-<div class="span3">
+<nav>
+    
+    <ul class="list-unstyled">
+        <li>
+            <a href="{{ path('admin_produits_index') }}">Produits</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_categories_index') }}">Catégories</a>
+        </li>
+    </ul>
 
-    <div class="well">
-        <ul class="nav nav-list">
-            <li>
-                <a href="{{ path('admin_produits_index') }}">Produits</a>
-            </li>
-            <li>
-                <a href="{{ path('admin_categories_index') }}">Catégories</a>
-            </li>
-        </ul>
-    </div>
+        
+    <ul class="list-unstyled">
+        <li>
+            <a href="{{ path('admin_utilisateurs_index') }}">Clients</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_commandes_index') }}">Commandes</a>
+        </li>
+    </ul>
 
-    <div class="well">
-        <ul class="nav nav-list">
-            <li>
-                <a href="{{ path('admin_utilisateurs_index') }}">Clients</a>
-            </li>
-            <li>
-                <a href="{{ path('admin_commandes_index') }}">Commandes</a>
-            </li>
-        </ul>
-    </div>
+        
+    <ul class="list-unstyled">
+        <li>
+            <a href="{{ path('admin_pages_index') }}">Pages</a>
+        </li>
 
-    <div class="well">
-        <ul class="nav nav-list">
-            <li>
-                <a href="{{ path('admin_pages_index') }}">Pages</a>
-            </li>
-
-        </ul>
-    </div>    
-</div>
+    </ul>
+ 
+</nav>

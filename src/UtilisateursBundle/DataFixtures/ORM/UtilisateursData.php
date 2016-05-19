@@ -20,10 +20,10 @@ class UtilisateursData extends AbstractFixture implements FixtureInterface, Cont
 
     public function load(ObjectManager $manager) {
         $utilisateur1 = new Utilisateurs();
-        $utilisateur1->setUsername('benjamin');
-        $utilisateur1->setEmail('benjamin@gmail.com');
+        $utilisateur1->setUsername('julien');
+        $utilisateur1->setEmail('julien.binet.27@gmail.com');
         $utilisateur1->setEnabled(1);
-        $utilisateur1->setPassword($this->container->get('security.encoder_factory')->getEncoder($utilisateur1)->encodePassword('poupou', $utilisateur1->getSalt()));
+        $utilisateur1->setPassword($this->container->get('security.encoder_factory')->getEncoder($utilisateur1)->encodePassword('julien', $utilisateur1->getSalt()));
         $manager->persist($utilisateur1);
 
         $utilisateur2 = new Utilisateurs();
@@ -54,6 +54,20 @@ class UtilisateursData extends AbstractFixture implements FixtureInterface, Cont
         $utilisateur5->setPassword($this->container->get('security.encoder_factory')->getEncoder($utilisateur5)->encodePassword('dominique', $utilisateur5->getSalt()));
         $manager->persist($utilisateur5);
 
+        $utilisateur6 = new Utilisateurs();
+        $utilisateur6->setUsername('test');
+        $utilisateur6->setEmail('test@gmail.com');
+        $utilisateur6->setEnabled(1);
+        $utilisateur6->setPassword($this->container->get('security.encoder_factory')->getEncoder($utilisateur6)->encodePassword('test', $utilisateur6->getSalt()));
+        $manager->persist($utilisateur6);
+
+        $utilisateur7 = new Utilisateurs();
+        $utilisateur7->setUsername('admin');
+        $utilisateur7->setEmail('admin@gmail.com');
+        $utilisateur7->setEnabled(1);
+        $utilisateur7->setPassword($this->container->get('security.encoder_factory')->getEncoder($utilisateur7)->encodePassword('admin', $utilisateur7->getSalt()));
+        $manager->persist($utilisateur7);
+
         $manager->flush();
 
         $this->addReference('utilisateur1', $utilisateur1);
@@ -61,6 +75,8 @@ class UtilisateursData extends AbstractFixture implements FixtureInterface, Cont
         $this->addReference('utilisateur3', $utilisateur3);
         $this->addReference('utilisateur4', $utilisateur4);
         $this->addReference('utilisateur5', $utilisateur5);
+        $this->addReference('utilisateur6', $utilisateur6);
+        $this->addReference('utilisateur7', $utilisateur7);
     }
 
     public function getOrder() {

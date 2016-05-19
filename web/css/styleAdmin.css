@@ -1,0 +1,104 @@
+body { padding-top: 50px; }
+
+.loading{
+    float:right;
+    width: 30px;
+    height: 30px;
+    display: block;
+    background: url('../img/loading.gif');
+    margin-right: 30%;
+}
+
+
+.btn-custom{
+    margin-top: 10px;
+}
+
+@media(max-width:767px){}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) { 
+    .navbar-default .navbar-brand{color:red;}
+
+    .navbar{
+        margin:0;
+    }
+
+    .sidebar {
+        position:fixed;
+        min-height: 100%;
+        padding:0;
+        /*background-image: linear-gradient(to bottom, #555 0%, #aaa 100%);*/
+        background-color: #868686;
+    }
+
+    .sidebar > nav{
+        height: 100%;
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    .sidebar > nav a{
+        color:#fff;
+        font-size: 16px;
+        padding:10px;
+        display: block;
+    }
+    .sidebar > nav a:hover{
+        background-color: #555;
+        text-decoration: none;
+    }
+
+    .dropdown:hover .dropdown-menu {
+        display: block;
+        margin-top: 0;
+    }
+
+    .dropdown-toggle.panier{
+        padding:10px 5px;
+    }
+
+    .thumbnail img:hover{
+        transform: scale(1.25);
+        transition:all 0.3s ease;
+    }
+
+    .thumbnail{
+        overflow: hidden;
+        width:146px;
+        height: 111px;
+        margin:0 auto;
+    }
+
+
+    .produits li {
+        border: 1px solid black;
+        border-radius: 10px;
+        margin: 10px;
+        padding: 15px;
+    }
+
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {    
+    .navbar-default .navbar-brand{color:green;}
+
+    .thumbnail{
+        width:140px;
+        height: 106px;
+    }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) { 
+    .navbar-default .navbar-brand{color:blue;}
+    .thumbnail{
+        width:177px;
+        height: 135px;
+    }
+}
+
+
+
+

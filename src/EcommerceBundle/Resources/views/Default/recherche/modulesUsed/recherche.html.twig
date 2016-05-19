@@ -1,7 +1,15 @@
-<form action="{{ path('rechercheProduits') }}" method="POST" class="navbar-form form-search pull-right">
-    
-    {{ form_widget(form.recherche)}}
-    <button type="submit" class="btn">Rechercher</button>
+<form action="{{ path('rechercheProduits') }}" method="POST" class="navbar-form form-search">
+
+    {#    <button type="submit" class="btn">Rechercher</button>#}
+
+    <div class="input-group">
+        {{ form_widget(form.recherche)}}
+        <div class="input-group-btn">
+            <button type="submit" class="form-control btn-search" id="inputSuccess5" aria-describedby="inputSuccess5Status">
+                <i class="fa fa-search form-control-feedback"></i>
+            </button>
+        </div>
+    </div>
     {{ form_widget(form)}}
 
 </form>

@@ -5,13 +5,13 @@
     <div class="container">
         <div class="row">
 
-            <div class="span3">
-                {% include '::modules/navigation.html.twig' %}
+            <div class="col-xs-12 col-sm-3">
+                
                 {% include 'UtilisateursBundle:Default:modulesUsed/utilisateursConnecte.html.twig' %}
-                {{ render(controller('EcommerceBundle:Panier:menu')) }}
+               <a class="" href="{{ path('produit') }}">Retour à la boutique</a>
             </div>
 
-            <div class="span9">
+            <div class="col-xs-12 col-sm-9">
 
                 {% for flashMessage in app.session.flashbag.get('success') %}
                     <div class="alert alert-success">
@@ -48,7 +48,7 @@
                                     <td>ref : {{ facture.reference }}</td>
                                     <td>{{ facture.date | date('d/m/Y') }}</td>
                                     <td>{{ facture.commande.prixTTC }}</td>
-                                    <td><a href="{{ path('facturesPDF', {'id' : facture.id}) }}" target="_blank"><i class="icon-refresh"></i></a></td>
+                                    <td><a href="{{ path('facturesPDF', {'id' : facture.id}) }}" target="_blank"><i class="fa fa-file-pdf-o"></i></a></td>
                                 </tr>
                             {% endfor %}
 

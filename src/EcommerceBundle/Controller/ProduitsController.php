@@ -24,10 +24,15 @@ class ProduitsController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
 
-        if ($idCategorie != null)
+        if ($idCategorie != null) {
             $findProduits = $em->getRepository('EcommerceBundle:Produits')->byCategorie($idCategorie);
-        else
+            $categorieRes = $em->getRepository('EcommerceBundle:Categories')->findOneBy(array('id' => $idCategorie));
+            $categorie = $categorieRes->getNom();
+        } else {
             $findProduits = $em->getRepository('EcommerceBundle:Produits')->findBy(array("disponible" => 1));
+            $categorie = 'Tous les produits';
+        }
+
 
         if ($session->has(('panier')))
             $panier = $session->get('panier');
@@ -36,13 +41,12 @@ class ProduitsController extends Controller {
 
 
         $produits = $this->get('knp_paginator')->paginate(
-                $findProduits,
-                $request->query->getInt('page', 1)/* page number */,
-                3/* limit per page */
+                $findProduits, $request->query->getInt('page', 1)/* page number */, 6/* limit per page */
         );
 
         return $this->render('EcommerceBundle:Default:produits/layout/produits.html.twig', array('produits' => $produits,
-                    'panier' => $panier));
+                    'panier' => $panier,
+                    'categorie' => $categorie));
     }
 
     /**
@@ -88,14 +92,17 @@ class ProduitsController extends Controller {
             $chaine = $form['recherche']->getData();
 
             $em = $this->getDoctrine()->getManager();
-            $produit = $em->getRepository('EcommerceBundle:Produits')->recherche($chaine);
+            $produitsRes = $em->getRepository('EcommerceBundle:Produits')->recherche($chaine);
         } else {
             throw $this->createNotFoundException("La page n'existe pas");
         }
 
+        $produits = $this->get('knp_paginator')->paginate(
+                $produitsRes, $request->query->getInt('page', 1)/* page number */, 3/* limit per page */
+        );
 
 
-        return $this->render('EcommerceBundle:Default:produits/layout/produits.html.twig', array('produits' => $produit));
+        return $this->render('EcommerceBundle:Default:produits/layout/recherche.html.twig', array('produits' => $produits, 'chaine' => $chaine));
     }
 
 }

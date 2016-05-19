@@ -15,7 +15,7 @@ class RechercheType extends AbstractType {
                 ->add('recherche', TextType::class , 
                         array(
                             'mapped' => false, 
-                            'attr'=> array('class' => 'input-medium search-query')
+                            'attr'=> array('class' => 'form-control')
                             )
                         ); // pout ne pas faire lien avec objet
                 //->add('tg', TextType::class);

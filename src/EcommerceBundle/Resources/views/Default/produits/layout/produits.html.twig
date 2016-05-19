@@ -7,41 +7,39 @@
     <div class="container">
         <div class="row">
 
-            <div class="span3">
+            <div class="col-xs-12 col-sm-3">
                 {% include '::modules/navigation.html.twig' %}
-
-                {% if is_granted('IS_AUTHENTICATED_FULLY')%}
-                    {% include 'UtilisateursBundle:Default:modulesUsed/utilisateursConnecte.html.twig' %}
-                {% else %}
-                    {% include 'UtilisateursBundle:Default:modulesUsed/utilisateurs.html.twig' %}
-                {% endif %}
-
-                {{ render(controller('EcommerceBundle:Panier:menu')) }}
-
             </div>
 
-            <div class="span9">
+            <div class="col-xs-12 col-sm-9">
+
+                <h3>{{categorie}}</h3>
 
                 {% if produits | length != 0 %}
 
-                    <ul class="thumbnails">
-                        {% for produit in produits %}
-                            <li class="span3">
-                                <div class="thumbnail">
-                                    <img src="{{ asset(produit.image.AssetPath) }}" alt="{{ produit.image.name }}" width="300" height="150">
+                    <div class="row">
+
+                        <ul class="list-unstyled produits">
+                            {% for produit in produits %}
+                                <li class="col-xs-12 col-sm-4 col-md-3">
+                                    <div class="thumbnail">
+                                        <a href="{{ path('presentation', { 'id' : produit.id }) }}">
+                                            <img src="{{ produit.image.AssetPath|imagine_filter('my_thumb') }}" class='img-responsive' alt="{{ produit.image.name }}" >
+                                        </a>
+                                    </div>
                                     <div class="caption">
                                         <h4>{{ produit.nom }}</h4>
                                         <p>{{ produit.prix | tva(produit.tva.multiplicate) }}€</p>
                                         <a class="btn btn-primary" href="{{ path('presentation', { 'id' : produit.id }) }}">Plus d'infos</a>
 
                                         {% if panier[produit.id] is not defined %}
-                                            <a class="btn btn-success" href="{{ path('ajouter', { 'id' : produit.id }) }}">Ajouter au panier</a>
+                                            <a class="btn btn-success btn-custom" href="{{ path('ajouter', { 'id' : produit.id }) }}">Ajouter au panier</a>
                                         {% endif %}
                                     </div>
-                                </div>
-                            </li>
-                        {% endfor %}
-                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
 
 
                     <div class="navigation">

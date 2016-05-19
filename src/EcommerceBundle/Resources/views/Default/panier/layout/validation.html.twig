@@ -6,11 +6,11 @@
     <div class="container">
         <div class="row">
 
-            <div class="span3">
+            <div class="col-xs-12 col-sm-3">
                 {% include '::modules/navigation.html.twig' %}
             </div>
 
-            <div class="span9">
+            <div class="col-xs-12 col-sm-9">
 
                 <h2>Valider mon panier</h2>
                 <table class="table table-striped table-hover">
@@ -52,7 +52,7 @@
                     <dd>{{ commande.commande.prixTTC}}€</dd>
                 </dl>
 
-                <div class="span3 pull-left">
+                <div class="col-xs-12 col-sm-3 pull-left">
                     <dl class="pull-left">
                         <dt><h4>Adresse de livraison</h4></dt>
                         <dt>{{ commande.commande.livraison.prenom }} {{ commande.commande.livraison.nom }}</dt>
@@ -61,7 +61,7 @@
                     </dl>
                 </div>
 
-                <div class="span3 pull-left">
+                <div class="col-xs-12 col-sm-3 pull-left">
                     <dl class="pull-left">
                         <dt><h4>Adresse de facturation</h4></dt>
                         <dt>{{ commande.commande.facturation.prenom }} {{ commande.commande.facturation.nom }}</dt>

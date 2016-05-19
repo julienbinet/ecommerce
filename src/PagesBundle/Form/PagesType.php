@@ -15,7 +15,7 @@ class PagesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titre')
+            ->add('titre', null, array('attr' => array('class' => 'form-control' )))
             ->add('contenu', null, array('attr' => array('class' => 'ckeditor' )))
         ;
     }

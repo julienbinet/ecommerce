@@ -15,10 +15,10 @@
                 <tr>
                     <td>{{ utilisateur.username }}</td><td>
                         {% if utilisateur.adresses|length != 0 %}
-                            <a href="{{ path('admin_utilisateurs_adresses', { 'id': utilisateur.id }) }}" title="Consulter les adresses"><i class="icon-book"></i></a>
+                            <a href="{{ path('admin_utilisateurs_adresses', { 'id': utilisateur.id }) }}" title="Consulter les adresses"><i class="fa fa-book"></i></a>
                             {% endif %}
                             {% if utilisateur.commandes|length != 0 %}
-                            <a href="{{ path('admin_utilisateurs_factures', { 'id': utilisateur.id }) }}" title="Consulter les factures"><i class="icon-edit"></i></a>
+                            <a href="{{ path('admin_utilisateurs_factures', { 'id': utilisateur.id }) }}" title="Consulter les factures"><i class="fa fa-edit"></i></a>
                             {% endif %}
                     </td>
                 </tr>

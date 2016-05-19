@@ -1,16 +1,17 @@
 {% extends '::layout/baseAdmin.html.twig' %}
 
 {% block body %}
-    <h1>Produits creation</h1>
-
-    {{ form_start(form) }}
+    <h1>Ajout d'un nouveau produit</h1>
+    <div class="col-sm-6">
+        {{ form_start(form) }}
         {{ form_widget(form) }}
         <input type="submit" value="Ajouter" />
-    {{ form_end(form) }}
+        {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_produits_index') }}">Retour</a>
-        </li>
-    </ul>
+        <ul>
+            <li>
+                <a href="{{ path('admin_produits_index') }}">Retour</a>
+            </li>
+        </ul>
+    </div>
 {% endblock %}

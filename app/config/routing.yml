@@ -10,10 +10,6 @@ pages_pages:
     resource: "@PagesBundle/Controller/PagesController.php"
     type:     annotation
 
-pages_pages:
-    resource: "@PagesBundle/Controller/PagesController.php"
-    type:     annotation
-
 utilisateurs:
     resource: "@UtilisateursBundle/Controller/"
     type:     annotation
@@ -31,3 +27,9 @@ ecommerce:
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+    
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
+    
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

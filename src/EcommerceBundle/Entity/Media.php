@@ -130,6 +130,36 @@ class Media {
         return $this->path;
     }
 
+    
+        /**
+     * Set path
+     *
+     * @param boolean $path
+     *
+     * @return string
+     */
+    public function setPath($path) {
+        $this->path = $path;
+
+        return $this;
+    }
+    
+     
+        /**
+     * Set name
+     *
+     * @param boolean $name
+     *
+     * @return string
+     */
+    public function setName($name) {
+        $this->name = $name;
+
+        return $this;
+    }
+    
+    
+
     public function getName() {
         return $this->name;
     }

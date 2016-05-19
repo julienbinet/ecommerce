@@ -91,7 +91,9 @@ class PanierController extends Controller {
      * @Route("/livraison" , name="livraison")
      */
     public function livraisonAction(Request $request) {
-
+        
+ $em = $this->getDoctrine()->getManager();
+ 
         $utilisateur = $this->container->get('security.token_storage')->getToken()->getUser();
         $entity = new UtilisateursAdresses();
         $form = $this->createForm(UtilisateursAdressesType::class, $entity);

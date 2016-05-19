@@ -18,7 +18,7 @@
                     <td>{{ commande.date | date('d/m/Y h:m:s') }}</td>
                     <td>{{ commande.reference }}</td>
                     <td>{{ commande.utilisateur.username }}</td>
-                    <td><a href="{{ path( 'voir_facture', {'id' : commande.id} ) }}"><i class="icon-book"></i></a></td>
+                    <td><a href="{{ path( 'voir_facture', {'id' : commande.id} ) }}"><i class="fa fa-file-pdf-o"></i></a></td>
                 </tr>
             {% endfor %}
         </tbody>

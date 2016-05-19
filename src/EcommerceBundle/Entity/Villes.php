@@ -838,4 +838,14 @@ class Villes
     {
         return $this->villeZmax;
     }
+    
+    /**
+ * toString
+ * @return string
+ */
+public function __toString() 
+{
+    return $this->getVilleNom();
+}
+    
 }

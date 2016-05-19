@@ -28,3 +28,16 @@ services:
         arguments: ["@service_container", "@session"]
         tags:
             - {name: kernel.event_listener, event: kernel.request, method: onKernelRequest}
+            
+            
+    app.form.profile:
+        class: UtilisateursBundle\Form\ProfileFormType
+        arguments: ["%fos_user.model.user.class%"]
+        tags:
+            - { name: form.type, alias: fos_user_profile }     
+            
+    app.form.changePassword:
+        class: UtilisateursBundle\Form\ChangePasswordFormType
+        arguments: ["%fos_user.model.user.class%"]
+        tags:
+            - { name: form.type, alias: fos_user_change_password }

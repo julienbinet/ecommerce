@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class UtilisateursController extends Controller {
 
@@ -51,20 +52,30 @@ class UtilisateursController extends Controller {
     }
 
     /**
-     * @Route("/villes/{cp}", name="villes")
+     * @Route("/villes/{cp}", name="villes",  options = { "expose" = true })
      */
-    public function villesAction($cp) {
-        $em = $this->getDoctrine()->getManager();
-        $ville = $em->getRepository('EcommerceBundle:Villes')->findOneBy(array('villeCodePostal' => $cp));
+    public function villesAction(Request $request, $cp) {
+        
+        if($request->isXmlHttpRequest()){
+            
+            $em = $this->getDoctrine()->getManager();
+            $listeVilles = $em->getRepository('EcommerceBundle:Villes')->findBy(array('villeCodePostal' => $cp));
 
-        if ($ville) {
-            $villeNom = $ville->getVilleNom();
-        } else {
-            $villeNom = null;
+            if ($listeVilles) {
+                $villes = array();
+                foreach ($listeVilles as $ville) {
+                    $villes[] = $ville->getVilleNom();
+                }
+            } else {
+                $villes = null;
+            }
+
+            $response = new JsonResponse();
+            return $response->setData(array('villes' => $villes));
+        }else{
+            throw $this->createNotFoundException("Erreur");
         }
         
-        $response = new JsonResponse();
-        return $response->setData(array('ville' => $villeNom));
         
     }
 

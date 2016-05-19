@@ -5,51 +5,66 @@
         <title>{% block titre %}Ecommerce - Admin{% endblock %}</title>
         <meta name="keywords" content="{% block motsCles %}{% endblock %}" />
         <meta name="description" content="{% block description %}{% endblock %}" />
+        {#<link rel="stylesheet" href="{{asset('css/admin-bootstrap.css')}}" />
+        <link rel="stylesheet" href="{{asset('css/admin-bootstrap-responsive.css')}}" />#}
         <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}" />
-        <link rel="stylesheet" href="{{asset('css/bootstrap-responsive.css')}}" />
-        <link rel="stylesheet" href="{{asset('css/style.css')}}" />
+        <link rel="stylesheet" href="{{asset('css/bootstrap-theme.css')}}" />
+        <link rel="stylesheet" href="{{asset('css/styleAdmin.css')}}" />
         <link rel="stylesheet" href="{{asset('css/font-awesome.css')}}" />
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
 <body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <button class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse" type="button">
+
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="brand" href="{{ path('produit') }}">Administration</a>
+                <a class="navbar-brand" href="{{ path('produit') }}">Administration</a>
             </div>
-        </div>
-    </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                    <li> <a href="{{ path('produit') }}">Allez sur le site</a></li>
+                </ul>
 
 
-    {#{% block body %}{% endblock %}#}
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
 
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
 
-            {% include '::modules/navigationAdmin.html.twig' %}
-            <div class="span9">
+            <div class="col-xs-12 col-sm-2 sidebar">
+                {% include '::modules/navigationAdmin.html.twig' %}
+            </div>
 
+            <div class="col-xs-12 col-sm-9 col-sm-offset-3">
             {% block body %}{% endblock %}
-
         </div>
+
     </div>
 </div>
 
 <hr />
 
-<footer id="footer" class="vspace20">
+<footer id="footer">
     <div class="container">
         <div class="row">
-            <div class="span4">
-                 <p>&copy; Copyright {{"now"|date('Y')}} - Binet Julien</p>
+            <div class="col-xs-12 col-sm-offset-3">
+                <p>&copy; Copyright {{"now"|date('Y')}} - Binet Julien</p>
             </div>
         </div>
 </footer>		

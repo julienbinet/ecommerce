@@ -74,6 +74,12 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: UtilisateursBundle\Entity\Utilisateurs
+    profile:
+        form:
+            type: UtilisateursBundle\Form\ProfileFormType
+    change_password:
+        form:
+            type: UtilisateursBundle\Form\ChangePasswordFormType
     
 knp_snappy:
     pdf:
@@ -89,5 +95,21 @@ knp_paginator:
         sort_direction_name: direction # sort direction query parameter name
         distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
     template:
-        pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_pagination.html.twig     # sliding pagination controls template
+        pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig     # sliding pagination controls template
         sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
+        
+liip_imagine:
+    resolvers:
+       default:
+          web_path: ~
+
+    filter_sets:
+        cache: ~
+        my_thumb:
+            quality: 80
+            filters:
+                thumbnail: { size: [250, 190], mode: outbound }
+        my_thumb_mini:
+            quality: 80
+            filters:
+                thumbnail: { size: [50, 50], mode: outbound }

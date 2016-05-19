@@ -1,19 +1,11 @@
 <div class="well">
-    <ul class="nav nav-list">
-        <li>
-            <a href="{{ path('fos_user_profile_show') }}">Mes informations</a>
-        </li>
-          <li>
-            <a href="{{ path('fos_user_profile_edit') }}">Editer mes informations</a>
-        </li>
-        <li>
-            <a href="{{ path('fos_user_change_password') }}">Changer mon mot de passe</a>
-        </li>
-        <li>
-            <a href="{{ path('factures') }}">Mes factures</a>
-        </li>
-        <li>
-            <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-        </li>
+    <h4>Mes informations</h4>
+    <ul class="list-unstyled">
+        <li><a href="{{ path('fos_user_profile_show') }}">Mes informations</a></li>
+        <li><a href="{{ path('fos_user_profile_edit') }}">Editer mes informations</a></li>
+        <li><a href="{{ path('fos_user_change_password') }}">Changer mon mot de passe</a></li>
+        <li><a href="{{ path('factures') }}">Mes factures</a></li>
+        <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
+        
     </ul>
 </div>

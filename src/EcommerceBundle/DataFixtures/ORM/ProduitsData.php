@@ -70,6 +70,69 @@ class ProduitsData extends AbstractFixture implements OrderedFixtureInterface {
         $produit6->setTva($this->getReference('tva2'));
         $manager->persist($produit6);
 
+        
+        $produit7 = new Produits();
+        $produit7->setCategorie($this->getReference('categorie3'));
+        $produit7->setDescription("Les pâtes alimentaires sont des aliments fabriqués à partir d'un mélange pétri de farine, de semoule de blé dur, d'épeautre, de blé noir, de riz ou d'autres types de céréales, d'eau et parfois d'œuf et de sel.");
+        $produit7->setDisponible('1');
+        $produit7->setImage($this->getReference('media11'));
+        $produit7->setNom('pâtes');
+        $produit7->setPrix('0.90');
+        $produit7->setTva($this->getReference('tva2'));
+        $manager->persist($produit7);
+        
+        
+        $produit8 = new Produits();
+        $produit8->setCategorie($this->getReference('categorie3'));
+        $produit8->setDescription("Le riz est une céréale de la famille des poacées (anciennement graminées), cultivée dans les régions tropicales, subtropicales et tempérées chaudes pour son fruit, ou caryopse, riche en amidon.");
+        $produit8->setDisponible('1');
+        $produit8->setImage($this->getReference('media12'));
+        $produit8->setNom('Riz');
+        $produit8->setPrix('0.75');
+        $produit8->setTva($this->getReference('tva2'));
+        $manager->persist($produit8);
+        
+        
+        $produit9 = new Produits();
+        $produit9->setCategorie($this->getReference('categorie3'));
+        $produit9->setDescription("La sauce tomate est une sauce salée à base de tomates.");
+        $produit9->setDisponible('1');
+        $produit9->setImage($this->getReference('media13'));
+        $produit9->setNom('Sauce Tomate');
+        $produit9->setPrix('1.78');
+        $produit9->setTva($this->getReference('tva2'));
+        $manager->persist($produit9);
+        
+        $produit10 = new Produits();
+        $produit10->setCategorie($this->getReference('categorie4'));
+        $produit10->setDescription("Le beurre est un aliment constitué par la matière grasse du lait seulement travaillée mécaniquement pour améliorer son goût, sa conservation et diversifier ses utilisations, que ce soit nature, notamment en tartine ou comme corps gras de cuisson des aliments, ou ingrédient de préparations culinaires et notamment pâtissières.");
+        $produit10->setDisponible('1');
+        $produit10->setImage($this->getReference('media14'));
+        $produit10->setNom('Beurre');
+        $produit10->setPrix('1.52');
+        $produit10->setTva($this->getReference('tva2'));
+        $manager->persist($produit10);
+        
+        $produit11 = new Produits();
+        $produit11->setCategorie($this->getReference('categorie4'));
+        $produit11->setDescription("La crème fraîche, est un produit laitier pasteurisé et maturé, obtenu par écrémage du lait de vache, devant contenir au moins 30 % de matière grasse, et au moins 12 % pour la crème légère fraîche.");
+        $produit11->setDisponible('1');
+        $produit11->setImage($this->getReference('media15'));
+        $produit11->setNom('Crème fraîche');
+        $produit11->setPrix('1.40');
+        $produit11->setTva($this->getReference('tva2'));
+        $manager->persist($produit11);
+        
+        $produit12 = new Produits();
+        $produit12->setCategorie($this->getReference('categorie4'));
+        $produit12->setDescription(" fromage est un aliment obtenu à partir de lait coagulé ou de produits laitiers, comme la crème, puis d'un égouttage suivi ou non de fermentation et éventuellement d'affinage (fromages affinés).");
+        $produit12->setDisponible('1');
+        $produit12->setImage($this->getReference('media16'));
+        $produit12->setNom('Fromage');
+        $produit12->setPrix('3.10');
+        $produit12->setTva($this->getReference('tva2'));
+        $manager->persist($produit12);
+        
         $manager->flush();
     }
 

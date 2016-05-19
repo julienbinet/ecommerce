@@ -25,7 +25,7 @@ class ProduitsAdminController extends Controller {
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
-        $produits = $em->getRepository('EcommerceBundle:Produits')->findAll();
+        $produits = $em->getRepository('EcommerceBundle:Produits')->findBy(array(), array('nom' => 'ASC'));
 
         return $this->render('EcommerceBundle:Administration:produits/layout/index.html.twig', array(
                     'produits' => $produits,

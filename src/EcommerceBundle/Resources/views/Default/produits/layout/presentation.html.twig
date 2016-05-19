@@ -9,46 +9,40 @@
     <div class="container">
         <div class="row">
 
-            <div class="span3">
+            <div class="col-xs-12 col-sm-3">
                 {% include '::modules/navigation.html.twig' %}
-
-                {% if is_granted('IS_AUTHENTICATED_FULLY')%}
-                    {% include 'UtilisateursBundle:Default:modulesUsed/utilisateursConnecte.html.twig' %}
-                {% else %}
-                    {% include 'UtilisateursBundle:Default:modulesUsed/utilisateurs.html.twig' %}
-                {% endif %}
-
-                {{ render(controller('EcommerceBundle:Panier:menu')) }}
             </div>
 
-
-            <div class="span9">
+            <div class="col-xs-12 col-sm-9">
                 <div class="row">
-                    <div class="span5">
-                        <img src="{{ asset(produit.image.AssetPath) }}" alt="{{ produit.image.name }}" >
+                    <div class="col-xs-12 col-sm-5">
+                        {#                        <img src="{{ produit.image.AssetPath |imagine_filter('my_thumb')  }}" alt="{{ produit.image.name }}" >#}
+                        <img src="{{ asset(produit.image.AssetPath)}}" class='img-responsive' alt="{{ produit.image.name }}" >
                     </div>
 
-                    <div class="span4">
+                    <div class="col-xs-12 col-sm-4">
                         <h4>{{ produit.nom }}</h4>
                         <h5>{{ produit.categorie.nom }}</h5>
                         <p>{{ produit.description }}</p>
                         <h4>{{ produit.prix | tva(produit.tva.multiplicate) }}€</h4>
-                            {% if panier[produit.id] is not defined %}
-                        <form action="{{ path('ajouter', { 'id' : produit.id }) }}" method='get'>
-                            <select name="qte" class="span1">
-                                {% for i in 0..10  %}
-                                    <option value="{{ i }}" >{{ i }}</option>
-                                {% endfor %}
-                            </select>
+                        {% if panier[produit.id] is not defined %}
+                            <form action="{{ path('ajouter', { 'id' : produit.id }) }}" method='get'>
+                                <div class="col-xs-5">
+                                    <select name="qte" class="col-xs-12 col-sm-1 form-control">
+                                        {% for i in 0..10  %}
+                                            <option value="{{ i }}" >{{ i }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
                                 <div>
                                     <button class="btn btn-primary">Ajouter au panier</button>
                                 </div>
-                        </form>
-                            {% else %}
-                                <div>
-                                    <a class="btn btn-primary" href="{{ path('panier') }}">Le produit est déjà dans votre panier</a>
-                                </div>
-                            {% endif %}
+                            </form>
+                        {% else %}
+                            <div>
+                                <a class="btn btn-primary" href="{{ path('panier') }}">Le produit est déjà dans votre panier</a>
+                            </div>
+                        {% endif %}
 
                     </div>
                 </div>

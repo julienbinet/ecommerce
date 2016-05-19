@@ -1,0 +1,56 @@
+{% extends "::layout/base.html.twig" %}
+
+
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-xs-12 col-sm-3">
+                {% include '::modules/navigation.html.twig' %}
+            </div>
+
+            <div class="col-xs-12 col-sm-9">
+
+                <h3>Résultat(s) pour : {{chaine}}</h3>
+
+                {% if produits | length != 0 %}
+
+                    <div class="row">
+
+                        <ul class="list-unstyled">
+                            {% for produit in produits %}
+                                <li class="col-xs-12 col-sm-4">
+                                    <div class="thumbnail">
+                                        <a href="{{ path('presentation', { 'id' : produit.id }) }}">
+                                            <img src="{{ asset(produit.image.AssetPath) }}" alt="{{ produit.image.name }}" width="300" height="150">
+                                        </a>
+                                    </div>
+                                        <div class="caption">
+                                            <h4>{{ produit.nom }}</h4>
+                                            <p>{{ produit.prix | tva(produit.tva.multiplicate) }}€</p>
+                                            <a class="btn btn-primary" href="{{ path('presentation', { 'id' : produit.id }) }}">Plus d'infos</a>
+
+                                            {% if panier[produit.id] is not defined %}
+                                                <a class="btn btn-success" href="{{ path('ajouter', { 'id' : produit.id }) }}">Ajouter au panier</a>
+                                            {% endif %}
+                                        </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+
+                    <div class="navigation">
+                        {{ knp_pagination_render(produits) }}
+                    </div>
+
+                {% else %}
+                    Aucun produit
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

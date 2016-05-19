@@ -15,12 +15,12 @@
             </tr>
             <tr>
                 <th>Contenu</th>
-                <td>{{ page.contenu }}</td>
+                <td>{{ page.contenu |raw}}</td>
             </tr>
         </tbody>
     </table>
 
-    <ul>
+    <ul class="list-unstyled">
         <li>
             <a href="{{ path('admin_pages_index') }}">Retour à la liste</a>
         </li>

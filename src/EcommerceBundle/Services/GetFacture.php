@@ -21,11 +21,15 @@ class GetFacture {
                 )
         );
 
-        if ($path === null) {
-            return $this->container->get('knp_snappy.pdf')->getOutputFromHtml($html);
-        } else {
-            return $this->container->get('knp_snappy.pdf')->generateFromHtml($html, $path);
-        }
+        $html2pdf = new \Html2Pdf_Html2Pdf('P', 'A4', 'fr');
+        $html2pdf->pdf->SetAuthor('Ecommerce');
+        $html2pdf->pdf->SetTitle('Facture ' . $facture->getReference());
+        $html2pdf->pdf->SetSubject('Facture ecommerce');
+        $html2pdf->pdf->SetKeywords('facture,ecommerce');
+        $html2pdf->pdf->SetDisplayMode('real');
+        $html2pdf->writeHTML($html);
+
+        return $html2pdf;
     }
 
 }

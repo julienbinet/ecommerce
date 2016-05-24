@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * UtilisateursAdresses
  *
- * @ORM\Table(name="utilisateurs_adresses")
+ * @ORM\Table(name="ecom_utilisateurs_adresses")
  * @ORM\Entity(repositoryClass="EcommerceBundle\Repository\UtilisateursAdressesRepository")
  */
 class UtilisateursAdresses {

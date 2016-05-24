@@ -24,8 +24,7 @@ class CommandesAdminController extends Controller {
                         )
         );
     }
-    
-    
+
     /**
      * @Route("/admin/facture/{id}", name="voir_facture")
      */
@@ -41,14 +40,13 @@ class CommandesAdminController extends Controller {
 
 
         /* Appel au service de generation de facture en pdf */
-        return new Response(
-                $this->container->get('setNewFacture')->facture($facture), 200, array(
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="facture.pdf"'
-                )
-        );
-        
-    }
 
+        $this->container->get('setNewFacture')->facture($facture)->Output('Facture.pdf');
+
+        $response = new Response();
+        $response->headers->set('Content-type', 'application/pdf');
+
+        return $response;
+    }
 
 }

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * commandes
  *
- * @ORM\Table(name="commandes")
+ * @ORM\Table(name="ecom_commandes")
  * @ORM\Entity(repositoryClass="EcommerceBundle\Repository\CommandesRepository")
  */
 class Commandes {

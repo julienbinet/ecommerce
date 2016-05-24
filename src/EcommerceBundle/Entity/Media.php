@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * Media
  *
- * @ORM\Table(name="media")
+ * @ORM\Table(name="ecom_media")
  * @ORM\Entity(repositoryClass="EcommerceBundle\Repository\MediaRepository")
  * @ORM\HasLifecycleCallbacks
  */

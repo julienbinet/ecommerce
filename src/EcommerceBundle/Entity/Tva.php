@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Tva
  *
- * @ORM\Table(name="tva")
+ * @ORM\Table(name="ecom_tva")
  * @ORM\Entity(repositoryClass="EcommerceBundle\Repository\TvaRepository")
  */
 class Tva {

@@ -43,21 +43,23 @@ class UtilisateursController extends Controller {
 //       return $this->render('UtilisateursBundle:Default:layout/facturePDF.html.twig', array('facture' => $facture));
 
         /* Appel au service de generation de facture en pdf */
-        return new Response(
-                $this->container->get('setNewFacture')->facture($facture), 200, array(
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="facture.pdf"'
-                )
-        );
+
+
+        $this->container->get('setNewFacture')->facture($facture)->Output('Facture.pdf');
+
+        $response = new Response();
+        $response->headers->set('Content-type', 'application/pdf');
+
+        return $response;
     }
 
     /**
      * @Route("/villes/{cp}", name="villes",  options = { "expose" = true })
      */
     public function villesAction(Request $request, $cp) {
-        
-        if($request->isXmlHttpRequest()){
-            
+
+        if ($request->isXmlHttpRequest()) {
+
             $em = $this->getDoctrine()->getManager();
             $listeVilles = $em->getRepository('EcommerceBundle:Villes')->findBy(array('villeCodePostal' => $cp));
 
@@ -72,11 +74,9 @@ class UtilisateursController extends Controller {
 
             $response = new JsonResponse();
             return $response->setData(array('villes' => $villes));
-        }else{
+        } else {
             throw $this->createNotFoundException("Erreur");
         }
-        
-        
     }
 
 }

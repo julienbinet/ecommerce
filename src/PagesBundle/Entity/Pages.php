@@ -10,7 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Pages
  *
- * @ORM\Table(name="pages")
+ * @ORM\Table(name="ecom_pages")
  * @ORM\Entity(repositoryClass="PagesBundle\Repository\PagesRepository")
  */
 class Pages

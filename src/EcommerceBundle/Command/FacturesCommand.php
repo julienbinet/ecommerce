@@ -27,10 +27,13 @@ class FacturesCommand extends ContainerAwareCommand {
         $output->writeln(count($factures) . " facture(s)");
 
         if (count($factures) > 0) {
-            $dir = '/var/www/html/Dev/ecommerce/Factures/' . $date->format('d-m-Y h:i:s');
+//            $dir = __DIR__.'/../../../'.'Factures/' . $date->format('d-m-Y h:i:s');
+            $dir = "./Factures/". $date->format('d-m-Y_h:i:s');
+//            $dircreate = $date->format('d-m-Y h-i-s');
+//            mkdir('Factures/' . $dircreate);
             foreach ($factures as $facture) {
-                $path = $dir.'/facture' . $facture->getReference() . '.pdf';
-                $this->getContainer('')->get('setNewFacture')->facture($facture, $path);
+                $path = './Factures/'.$date->format('d-m-Y_h:i:s').'_facture' . $facture->getReference() . '.pdf';
+                $this->getContainer('')->get('setNewFacture')->facture($facture)->Output($path, 'F');
             }
         }
     }

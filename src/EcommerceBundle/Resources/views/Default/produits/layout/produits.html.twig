@@ -27,14 +27,23 @@
                                             <img src="{{ produit.image.AssetPath|imagine_filter('my_thumb') }}" class='img-responsive' alt="{{ produit.image.name }}" >
                                         </a>
                                     </div>
-                                    <div class="caption">
-                                        <h4>{{ produit.nom }}</h4>
-                                        <p>{{ produit.prix | tva(produit.tva.multiplicate) }}€</p>
-                                        <a class="btn btn-primary" href="{{ path('presentation', { 'id' : produit.id }) }}">Plus d'infos</a>
+                                    <div class="row infos">
 
-                                        {% if panier[produit.id] is not defined %}
-                                            <a class="btn btn-success btn-custom" href="{{ path('ajouter', { 'id' : produit.id }) }}">Ajouter au panier</a>
-                                        {% endif %}
+                                        <div class="col-xs-12">
+                                            <a class="nom" href="{{ path('presentation', { 'id' : produit.id }) }}">{{ produit.nom }}</a>
+                                            <span class="prix">{{ produit.prix | tva(produit.tva.multiplicate) }}€</span>
+
+
+                                            {#                                            <a class="btn btn-primary" href="{{ path('presentation', { 'id' : produit.id }) }}">Détails</a>#} 
+
+                                            {% if panier[produit.id] is not defined %}
+                                                <div class="text-center">
+                                                    <a class="btn-ajout-panier" href="{{ path('ajouter', { 'id' : produit.id }) }}">
+                                                        <i class="fa fa-shopping-cart"></i> Ajouter au panier
+                                                    </a>
+                                                </div>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </li>
                             {% endfor %}

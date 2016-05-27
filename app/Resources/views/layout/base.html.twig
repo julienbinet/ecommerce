@@ -52,12 +52,12 @@
     </nav>
 
 {% block body %}{% endblock %}
-<hr />
+
 
 <footer id="footer" class="vspace20">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 col-sm-4 col-sm-offset-1">
+            <div class="col-xs-12 col-sm-4">
                 <h4>Informations</h4>
                 <ul class="list-unstyled">
                     {{ render(controller('PagesBundle:Pages:menu')) }}
@@ -69,7 +69,7 @@
                 <p><i class="fa fa-map-marker"></i>&nbsp;{{ adresse }}</p>
             </div>
 
-            <div class="col-xs-12 col-sm-2">
+            <div class="col-xs-12 col-sm-4">
                 <h4>Nous contacter</h4>
                 <p><i class="fa fa-phone"></i>&nbsp;Tel: {{ telephone }}</p>
                 <p><i class="fa fa-print"></i>&nbsp;Fax: {{ fax }}</p>

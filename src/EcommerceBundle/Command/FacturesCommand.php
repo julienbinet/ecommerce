@@ -29,10 +29,9 @@ class FacturesCommand extends ContainerAwareCommand {
         if (count($factures) > 0) {
 //            $dir = __DIR__.'/../../../'.'Factures/' . $date->format('d-m-Y h:i:s');
             $dir = "./Factures/". $date->format('d-m-Y_h:i:s');
-//            $dircreate = $date->format('d-m-Y h-i-s');
-//            mkdir('Factures/' . $dircreate);
+            mkdir($dir);
             foreach ($factures as $facture) {
-                $path = './Factures/'.$date->format('d-m-Y_h:i:s').'_facture' . $facture->getReference() . '.pdf';
+                $path = $dir.'/facture' . $facture->getReference() . '.pdf';
                 $this->getContainer('')->get('setNewFacture')->facture($facture)->Output($path, 'F');
             }
         }
